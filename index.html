@@ -4,355 +4,324 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>1 分鐘找到你的日常儀式｜極光盾</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --brand: #e6ca5c; --brand-deep: #a8871f;
-    --ink: #4a4437; --ink-soft: #8d8574;
-    --bg: #faf7ef; --card: #ffffff; --line: #ede7d6;
-    --green: #6f8f6a; --blue: #6d87a8; --pink: #c58a96; --gold: #bfa14a;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body {
-    font-family: "Noto Sans TC", sans-serif;
-    background: var(--bg); color: var(--ink);
-    line-height: 1.65; padding: 18px 14px 28px;
-    display: flex; justify-content: center;
-  }
-  .app { width: 100%; max-width: 430px; }
-  .head { text-align: center; margin-bottom: 14px; }
-  .head .kicker { font-size: 12.5px; letter-spacing: 3px; color: var(--brand-deep); }
-  .head h1 { font-size: 21px; font-weight: 700; margin-top: 2px; }
-  .head p { font-size: 13.5px; color: var(--ink-soft); margin-top: 4px; }
-
-  .dots { display: flex; justify-content: center; gap: 7px; margin: 14px 0; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: all .25s; }
-  .dot.on { background: var(--brand-deep); transform: scale(1.25); }
-
-  .panel { animation: fade .3s ease; }
-  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
-  .q-title { font-size: 17.5px; font-weight: 700; text-align: center; margin: 6px 0 16px; }
-  .opt {
-    display: block; width: 100%; text-align: left;
-    background: var(--card); border: 1.5px solid var(--line);
-    border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
-    font-family: inherit; font-size: 15px; color: var(--ink);
-    cursor: pointer; transition: all .15s;
-  }
-  .opt:active { transform: scale(.98); }
-  .opt:hover { border-color: var(--brand); background: #fffdf5; }
-  .opt .emo { margin-right: 8px; }
-
-  .start-card, .result-card {
-    background: var(--card); border: 1.5px solid var(--line);
-    border-radius: 18px; padding: 22px 20px; text-align: center;
-  }
-  .big-btn {
-    display: block; width: 100%; border: none; cursor: pointer;
-    background: var(--brand); color: #4a3b0c;
-    font-family: inherit; font-size: 16.5px; font-weight: 700; letter-spacing: 2px;
-    padding: 14px; border-radius: 14px; margin-top: 16px;
-    text-decoration: none;
-  }
-  .big-btn:hover { background: #ddbf47; }
-  .ghost-btn {
-    display: block; width: 100%; border: 1.5px solid var(--line); cursor: pointer;
-    background: transparent; color: var(--ink-soft);
-    font-family: inherit; font-size: 14px; padding: 11px; border-radius: 12px; margin-top: 10px;
-    text-decoration: none;
-  }
-  .type-tag {
-    display: inline-block; font-size: 13px; font-weight: 500;
-    padding: 4px 14px; border-radius: 99px; color: #fff; letter-spacing: 1px;
-  }
-  .result-card h2 { font-size: 22px; font-weight: 700; margin: 10px 0 4px; }
-  .result-card .desc { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 14px; }
-  .hero {
-    text-align: left; background: #fdfaf1; border: 1.5px solid var(--brand);
-    border-radius: 16px; padding: 14px; margin-bottom: 12px;
-    display: flex; gap: 14px; align-items: center;
-  }
-  .hero img {
-    width: 104px; height: 104px; object-fit: cover;
-    border-radius: 12px; flex: none; background: #f1ecdd;
-  }
-  .hero .label { font-size: 12px; color: var(--brand-deep); letter-spacing: 2px; }
-  .hero .name { font-size: 15.5px; font-weight: 700; margin: 2px 0; line-height: 1.4; }
-  .hero .why { font-size: 13px; color: var(--ink-soft); }
-  .hero .price { font-size: 15px; font-weight: 700; color: var(--brand-deep); margin-top: 4px; }
-  .pair-row {
-    display: flex; gap: 12px; align-items: center; text-align: left;
-    background: var(--card); border: 1.5px solid var(--line);
-    border-radius: 14px; padding: 10px 12px; margin-top: 10px;
-    text-decoration: none; color: var(--ink);
-  }
-  .pair-row:hover { border-color: var(--brand); }
-  .pair-row img {
-    width: 56px; height: 56px; object-fit: cover; border-radius: 10px; flex: none;
-    background: #f1ecdd;
-  }
-  .pair-row .p-label { font-size: 11.5px; color: var(--brand-deep); letter-spacing: 1px; }
-  .pair-row .p-name { font-size: 13.5px; font-weight: 500; line-height: 1.4; }
-  .pair-row .p-price { font-size: 13px; color: var(--brand-deep); }
-  .pair-row .go { margin-left: auto; flex: none; font-size: 12.5px; color: #fff; background: var(--brand-deep); border-radius: 99px; padding: 5px 11px; }
-
-  .coupon {
-    background: linear-gradient(135deg, #fdf3d3, #fbeab7);
-    border-radius: 14px; padding: 14px; margin: 14px 0 4px;
-  }
-  .coupon .c-label { font-size: 13px; color: #7a6215; }
-  .coupon .code {
-    font-size: 24px; font-weight: 700; letter-spacing: 4px; color: #5c4a10;
-    margin: 4px 0;
-  }
-  .coupon button {
-    border: none; background: #5c4a10; color: #fdf3d3; cursor: pointer;
-    font-family: inherit; font-size: 13px; padding: 7px 18px; border-radius: 99px;
-  }
-  .coupon .hint { font-size: 12px; color: #9a8340; margin-top: 6px; }
-
-  .foot { font-size: 11.5px; color: #b3ab99; text-align: center; margin-top: 16px; line-height: 1.6; }
-</style>
 </head>
-<body>
-<div class="app">
-  <div class="head">
-    <h1>1 分鐘找到你的日常儀式</h1>
-    <p>5 個小問題，找到最適合你的第一件淨化儀式小物</p>
-  </div>
-  <div class="dots" id="dots"></div>
-  <div id="stage"></div>
-  <p class="foot">這個小測驗幫你認識自己的偏好，不是醫療或命理建議。<br>若使用產品過程有不適，請先暫停並視情況尋求專業協助。</p>
-</div>
+<body style="margin:0;background:#faf7ef;">
 
+<!-- ▼▼▼ BVSHOP 嵌入起點：從這行以下、到「嵌入終點」為止，整段複製貼進官網的 HTML 元件 ▼▼▼ -->
+<div id="arq-app"></div>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+#arq-app {
+  --arq-brand: #e6ca5c; --arq-deep: #a8871f;
+  --arq-ink: #4a4437; --arq-soft: #8d8574;
+  --arq-card: #ffffff; --arq-line: #ede7d6;
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  color: var(--arq-ink); line-height: 1.65;
+  max-width: 430px; margin: 0 auto; padding: 18px 14px 28px;
+  box-sizing: border-box;
+}
+#arq-app *, #arq-app *::before, #arq-app *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+#arq-app .arq-head { text-align: center; margin-bottom: 14px; }
+#arq-app .arq-head h2 { font-size: 21px; font-weight: 700; color: var(--arq-ink); }
+#arq-app .arq-head p { font-size: 13.5px; color: var(--arq-soft); margin-top: 4px; }
+#arq-app .arq-dots { display: flex; justify-content: center; gap: 7px; margin: 14px 0; }
+#arq-app .arq-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--arq-line); transition: all .25s; }
+#arq-app .arq-dot.on { background: var(--arq-deep); transform: scale(1.25); }
+#arq-app .arq-panel { animation: arqfade .3s ease; }
+@keyframes arqfade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+#arq-app .arq-qtitle { font-size: 17.5px; font-weight: 700; text-align: center; margin: 6px 0 16px; }
+#arq-app button.arq-opt {
+  display: block; width: 100%; text-align: left;
+  background: var(--arq-card); border: 1.5px solid var(--arq-line);
+  border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+  font-family: inherit; font-size: 15px; color: var(--arq-ink);
+  cursor: pointer; transition: all .15s; line-height: 1.55;
+}
+#arq-app button.arq-opt:hover { border-color: var(--arq-brand); background: #fffdf5; }
+#arq-app button.arq-opt:active { transform: scale(.98); }
+#arq-app .arq-start, #arq-app .arq-result {
+  background: var(--arq-card); border: 1.5px solid var(--arq-line);
+  border-radius: 18px; padding: 22px 18px; text-align: center;
+}
+#arq-app .arq-big {
+  display: block; width: 100%; border: none; cursor: pointer;
+  background: var(--arq-brand); color: #4a3b0c;
+  font-family: inherit; font-size: 16.5px; font-weight: 700; letter-spacing: 2px;
+  padding: 14px; border-radius: 14px; margin-top: 14px;
+  text-decoration: none; text-align: center;
+}
+#arq-app .arq-big:hover { background: #ddbf47; }
+#arq-app .arq-ghost {
+  display: block; width: 100%; border: 1.5px solid var(--arq-line); cursor: pointer;
+  background: transparent; color: var(--arq-soft);
+  font-family: inherit; font-size: 14px; padding: 11px; border-radius: 12px; margin-top: 10px;
+  text-decoration: none; text-align: center;
+}
+#arq-app .arq-tag {
+  display: inline-block; font-size: 13px; font-weight: 500;
+  padding: 4px 14px; border-radius: 99px; color: #fff; letter-spacing: 1px;
+}
+#arq-app .arq-result h3 { font-size: 22px; font-weight: 700; margin: 10px 0 4px; color: var(--arq-ink); }
+#arq-app .arq-desc { font-size: 14.5px; color: var(--arq-soft); margin-bottom: 14px; }
+#arq-app .arq-hero {
+  text-align: left; background: #fdfaf1; border: 1.5px solid var(--arq-brand);
+  border-radius: 16px; padding: 14px; margin-bottom: 10px;
+  display: flex; gap: 13px; align-items: center;
+}
+#arq-app .arq-hero img { width: 100px; height: 100px; object-fit: cover; border-radius: 12px; flex: none; background: #f1ecdd; }
+#arq-app .arq-hero .l { font-size: 12px; color: var(--arq-deep); letter-spacing: 2px; }
+#arq-app .arq-hero .n { font-size: 15px; font-weight: 700; margin: 2px 0; line-height: 1.4; }
+#arq-app .arq-hero .w { font-size: 12.5px; color: var(--arq-soft); }
+#arq-app .arq-hero .p { font-size: 15px; font-weight: 700; color: var(--arq-deep); margin: 4px 0 6px; }
+#arq-app .arq-add {
+  border: none; cursor: pointer; font-family: inherit;
+  background: var(--arq-deep); color: #fff; font-size: 13.5px; font-weight: 500;
+  padding: 8px 16px; border-radius: 99px; transition: all .15s;
+}
+#arq-app .arq-add:hover { background: #8a6d15; }
+#arq-app .arq-add.ok { background: #3e7d54; cursor: default; }
+#arq-app .arq-add:disabled { opacity: .6; cursor: wait; }
+#arq-app .arq-view { font-size: 12px; color: var(--arq-soft); text-decoration: underline; margin-left: 10px; }
+#arq-app .arq-pair {
+  display: flex; gap: 12px; align-items: center; text-align: left;
+  background: var(--arq-card); border: 1.5px solid var(--arq-line);
+  border-radius: 14px; padding: 10px 12px; margin-bottom: 10px;
+}
+#arq-app .arq-pair img { width: 56px; height: 56px; object-fit: cover; border-radius: 10px; flex: none; background: #f1ecdd; }
+#arq-app .arq-pair .pl { font-size: 11.5px; color: var(--arq-deep); letter-spacing: 1px; }
+#arq-app .arq-pair .pn { font-size: 13.5px; font-weight: 500; line-height: 1.4; }
+#arq-app .arq-pair .pn a { color: inherit; text-decoration: none; }
+#arq-app .arq-pair .pp { font-size: 13px; color: var(--arq-deep); }
+#arq-app .arq-pair .arq-add { margin-left: auto; flex: none; }
+#arq-app .arq-status {
+  display: none; background: #eaf3e6; color: #3e6b47;
+  font-size: 13.5px; border-radius: 10px; padding: 9px 12px; margin-bottom: 10px;
+}
+#arq-app .arq-status.show { display: block; }
+#arq-app .arq-coupon { background: linear-gradient(135deg, #fdf3d3, #fbeab7); border-radius: 14px; padding: 14px; margin: 4px 0 2px; }
+#arq-app .arq-coupon .cl { font-size: 13px; color: #7a6215; }
+#arq-app .arq-coupon .cc { font-size: 24px; font-weight: 700; letter-spacing: 4px; color: #5c4a10; margin: 4px 0; }
+#arq-app .arq-coupon button { border: none; background: #5c4a10; color: #fdf3d3; cursor: pointer; font-family: inherit; font-size: 13px; padding: 7px 18px; border-radius: 99px; }
+#arq-app .arq-coupon .ch { font-size: 12px; color: #9a8340; margin-top: 6px; }
+#arq-app .arq-foot { font-size: 11.5px; color: #b3ab99; text-align: center; margin-top: 16px; line-height: 1.6; }
+</style>
 <script>
-/* ====== 站長設定區（Tony 只要改這裡）====== */
-const CONFIG = {
-  DISCOUNT_CODE: "RITUAL50",            // 到 BVSHOP 後台建立同名折扣碼後改這裡
-  DISCOUNT_TEXT: "首購輸入折扣碼現折 NT$50",  // 折扣內容說明
-  LINE_URL: "https://line.me/ti/p/~@003lnjai",
-  UTM: "utm_source=website&utm_medium=quiz&utm_campaign=ritual_quiz"
-};
-const LINKS = {
-  green: "https://seethelight.shop/category/%E6%83%85%E7%B7%92%E8%88%92%E7%B7%A9%E6%94%BE%E9%AC%86",
-  blue:  "https://seethelight.shop/category/%E9%AB%98%E6%95%8F%E6%84%9F%E4%BA%BA%E5%BF%85%E9%81%B8",
-  pink:  "https://seethelight.shop/category/%E6%8B%9B%E8%B2%A1%E8%B2%B4%E4%BA%BA%E6%A1%83%E8%8A%B1%E5%B7%A5%E4%BD%9C%E9%81%8B",
-  gold:  "https://seethelight.shop/category/%E6%8B%9B%E8%B2%A1%E8%B2%B4%E4%BA%BA%E6%A1%83%E8%8A%B1%E5%B7%A5%E4%BD%9C%E9%81%8B",
-  starter: "https://seethelight.shop/category/%E9%A6%96%E6%AC%A1%E4%BD%BF%E7%94%A8%E6%8E%A8%E8%96%A6"
-};
-/* ========================================= */
+(function () {
+  /* ====== 站長設定區 ====== */
+  var CONFIG = {
+    DISCOUNT_CODE: "RITUAL50",
+    DISCOUNT_TEXT: "首購輸入折扣碼現折 NT$50",
+    LINE_URL: "https://line.me/ti/p/~@003lnjai",
+    UTM: "utm_source=website&utm_medium=quiz&utm_campaign=ritual_quiz",
+    SHOP: "https://seethelight.shop"
+  };
+  /* ======================== */
 
-const QUESTIONS = [
-  {
-    q: "最近的你，哪一句最有感？",
-    opts: [
+  var IMG = "https://image.bvshop.tw/5164/product/";
+  var SAME_ORIGIN = location.hostname.replace(/^www\./, "") === "seethelight.shop";
+
+  var ITEMS = {
+    greenBath:   { name: "情緒安神淨化包（綠標）30入", price: "NT$399", slug: "calming-incense-shower",        pid: 584919, spec: 2008528, img: "5164_69d89abcc2f2c.jpg.webp" },
+    greenSpray:  { name: "平安靜心露 60ml",            price: "NT$230", slug: "hydrosol-purify-spray-60ml",    pid: 560078, spec: "",      img: "5164_6a549a3bbf677.jpg.webp" },
+    greenPowder: { name: "情緒安神薰香粉",              price: "NT$420", slug: "calming-incense-powder",        pid: 560066, spec: "",      img: "5164_69d89c20e81f2.jpg.webp" },
+    blueBath:    { name: "深層能量淨化包（藍標）30入", price: "NT$399", slug: "deep-cleansing-incense-shower", pid: 560064, spec: 1914052, img: "5164_69d89aeddf08d.jpg.webp" },
+    blueSpray:   { name: "深層淨化露 60ml",            price: "NT$230", slug: "protect-purify-spray-60ml",     pid: 560105, spec: "",      img: "5164_6a5499fb00807.jpg.webp" },
+    bluePowder:  { name: "深層淨化薰香粉",              price: "NT$420", slug: "deep-cleansing-incense-powder", pid: 560073, spec: "",      img: "5164_69d89c836bfda.jpg.webp" },
+    pinkBath:    { name: "桃花貴人滋養包（紅標）30入", price: "NT$399", slug: "charm-incense-shower",          pid: 560087, spec: 2018944, img: "5164_69d89b47a10a7.jpg.webp" },
+    pinkSpray:   { name: "桃花舒心露 60ml",            price: "NT$230", slug: "charm-nourishing-spray",        pid: 560089, spec: "",      img: "5164_6a5499ea0a625.jpg.webp" },
+    pinkPowder:  { name: "桃花貴人滋養薰香粉",          price: "NT$420", slug: "charm-incense-powder",          pid: 560104, spec: "",      img: "5164_69d89cf4e92b0.jpg.webp" },
+    goldSpray:   { name: "財氣心香露 60ml",            price: "NT$280", slug: "wealth-essence-spray-60ml",     pid: 560068, spec: "",      img: "5164_6a5499d29c651.jpg.webp" },
+    dish:        { name: "極光薰香碟（財氣運勢黃）",    price: "NT$269", slug: "aurora-incense-dish",           pid: 560094, spec: 1914126, img: "5164_69b26f24d656e.jpeg.webp" }
+  };
+
+  var PRODUCTS = {
+    green: { bath: x(ITEMS.greenBath, "睡前的泡浴儀式，把今天慢慢洗掉"), spray: x(ITEMS.greenSpray, "噴在房間與織品上，讓空間聞起來不一樣"), incense: x(ITEMS.greenPowder, "點一盤，讓空間慢慢靜下來") },
+    blue:  { bath: x(ITEMS.blueBath, "回家後的日常淨化儀式"), spray: x(ITEMS.blueSpray, "回家先幫空間換個頻，再開始自己的時間"), incense: x(ITEMS.bluePowder, "點一盤，回家後的空間淨化儀式") },
+    pink:  { bath: x(ITEMS.pinkBath, "玫瑰桂花香氣，重要約會前的沐浴儀式"), spray: x(ITEMS.pinkSpray, "約會與聚會出門前，幫空間和衣物添一層花香"), incense: x(ITEMS.pinkPowder, "點一盤，讓房間常駐溫柔花香") },
+    gold:  { bath: x(ITEMS.goldSpray, "開工開市、月初理財的財位換頻儀式"), spray: x(ITEMS.goldSpray, "開工開市、簽約提案前，先幫工作空間換個頻"), incense: x(ITEMS.goldSpray, "搭配極光薰香碟放在財位，成為你的月初儀式") }
+  };
+  var PAIRING  = { green: ITEMS.greenSpray, blue: ITEMS.blueSpray, pink: ITEMS.pinkSpray, gold: ITEMS.dish };
+  var PAIR_ALT = { green: ITEMS.greenBath,  blue: ITEMS.blueBath,  pink: ITEMS.pinkBath,  gold: ITEMS.dish };
+
+  var TYPES = {
+    green: { emoji: "🌙", color: "#6f8f6a", title: "睡前儀式型", desc: "你的思緒常常加班。比起多做什麼，你更需要一段幫自己「關機」的固定儀式。" },
+    blue:  { emoji: "🍃", color: "#6d87a8", title: "環境感應型", desc: "你對環境的訊號特別敏銳，出門一趟像跑了馬拉松。你需要的是回家後把自己收回來的日常淨化習慣。" },
+    pink:  { emoji: "🌸", color: "#c58a96", title: "花香氛圍型", desc: "你在意身邊的人與溫度。約會、聚會這些重要場合前，一段小小的儀式感能讓你用最喜歡的狀態出門。" },
+    gold:  { emoji: "✨", color: "#bfa14a", title: "豐盛起手型", desc: "開工開市、月初理財、簽約提案——你喜歡把每個開始都好好對待。給工作空間一個換頻儀式，就是你的起手式。" }
+  };
+
+  var QUESTIONS = [
+    { q: "最近的你，哪一句最有感？", opts: [
       { t: "🌙 腦子常常下不了班，睡前想東想西", line: "green" },
       { t: "🍃 人多的地方待久了，整個人像被抽乾", line: "blue" },
       { t: "🌸 想讓生活多一點人與人的溫度", line: "pink" },
-      { t: "✨ 新的階段要開始了，想好好起頭", line: "gold" }
-    ]
-  },
-  {
-    q: "走進一個空間，你最先注意到什麼？",
-    opts: [
+      { t: "✨ 新的階段要開始了，想好好起頭", line: "gold" } ] },
+    { q: "走進一個空間，你最先注意到什麼？", opts: [
       { t: "🛋 安不安靜、能不能讓我放鬆", line: "green" },
       { t: "👀 氣氛對不對勁，我很容易受環境影響", line: "blue" },
       { t: "💬 氣氛熱不熱絡、有沒有聊得來的人", line: "pink" },
-      { t: "📈 這個地方有沒有機會、值不值得經營", line: "gold" }
-    ]
-  },
-  {
-    q: "送你一天完全屬於自己的假，你想怎麼過？",
-    opts: [
+      { t: "📈 這個地方有沒有機會、值不值得經營", line: "gold" } ] },
+    { q: "送你一天完全屬於自己的假，你想怎麼過？", opts: [
       { t: "🛁 在家放空，把自己好好收回來", line: "green" },
       { t: "⛰ 遠離人群，找個安靜的地方充電", line: "blue" },
       { t: "☕ 約在乎的人見面，好好聊聊", line: "pink" },
-      { t: "📒 整理計畫，把想做的事往前推一格", line: "gold" }
-    ]
-  },
-  {
-    q: "哪一種小儀式最像你會做的事？",
-    opts: [
+      { t: "📒 整理計畫，把想做的事往前推一格", line: "gold" } ] },
+    { q: "哪一種小儀式最像你會做的事？", opts: [
       { t: "🛁 睡前泡個澡，把今天慢慢洗掉", fmt: "bath" },
       { t: "💨 幫房間、車上或包包織品換個氣味", fmt: "spray" },
-      { t: "🕯 點一盤香，讓空間慢慢靜下來", fmt: "incense" }
-    ]
-  },
-  {
-    q: "忙完一整天回到家，第一件想做的事是？",
-    opts: [
+      { t: "🕯 點一盤香，讓空間慢慢靜下來", fmt: "incense" } ] },
+    { q: "忙完一整天回到家，第一件想做的事是？", opts: [
       { t: "🚿 先洗澡，其他等等再說", fmt: "bath" },
       { t: "🛋 換上家居服，窩進自己的角落", fmt: "incense" },
-      { t: "📱 先癱著滑手機，越不費力越好", fmt: "spray" }
-    ]
+      { t: "📱 先癱著滑手機，越不費力越好", fmt: "spray" } ] }
+  ];
+
+  function x(item, why) { var o = {}; for (var k in item) o[k] = item[k]; o.why = why; return o; }
+
+  var root = document.getElementById("arq-app");
+  var step = -1, lineScore, fmtScore, addedCount = 0;
+  var current = { main: null, pair: null, line: null };
+
+  function itemUrl(p, tag) { return CONFIG.SHOP + "/item/" + p.slug + "?" + CONFIG.UTM + "&utm_content=" + tag; }
+  function esc(s) { return String(s).replace(/"/g, "&quot;"); }
+
+  function shell(inner, showDots) {
+    var dots = "";
+    for (var i = 0; i < QUESTIONS.length; i++) dots += '<div class="arq-dot' + (i <= step ? " on" : "") + '"></div>';
+    return '<div class="arq-head"><h2>1 分鐘找到你的日常儀式</h2><p>5 個小問題，找到最適合你的第一件淨化儀式小物</p></div>' +
+      '<div class="arq-dots" style="visibility:' + (showDots ? "visible" : "hidden") + '">' + dots + "</div>" + inner +
+      '<p class="arq-foot">這個小測驗幫你認識自己的偏好，不是醫療或命理建議。<br>若使用產品過程有不適，請先暫停並視情況尋求專業協助。</p>';
   }
-];
 
-const SHOP = "https://seethelight.shop/item/";
-const IMG = "https://image.bvshop.tw/5164/product/";
-
-const ITEMS = {
-  greenBath:   { name: "情緒安神淨化包（綠標）", price: "NT$399 起", slug: "calming-incense-shower",       img: "5164_69d89abcc2f2c.jpg.webp" },
-  greenSpray:  { name: "平安靜心露 60ml",       price: "NT$230",    slug: "hydrosol-purify-spray-60ml",   img: "5164_6a549a3bbf677.jpg.webp" },
-  greenPowder: { name: "情緒安神薰香粉",         price: "NT$420",    slug: "calming-incense-powder",       img: "5164_69d89c20e81f2.jpg.webp" },
-  blueBath:    { name: "深層能量淨化包（藍標）", price: "NT$399 起", slug: "deep-cleansing-incense-shower", img: "5164_69d89aeddf08d.jpg.webp" },
-  blueSpray:   { name: "深層淨化露 60ml",       price: "NT$230",    slug: "protect-purify-spray-60ml",    img: "5164_6a5499fb00807.jpg.webp" },
-  bluePowder:  { name: "深層淨化薰香粉",         price: "NT$420",    slug: "deep-cleansing-incense-powder", img: "5164_69d89c836bfda.jpg.webp" },
-  pinkBath:    { name: "桃花貴人滋養包（紅標）", price: "NT$399 起", slug: "charm-incense-shower",         img: "5164_69d89b47a10a7.jpg.webp" },
-  pinkSpray:   { name: "桃花舒心露 60ml",       price: "NT$230",    slug: "charm-nourishing-spray",       img: "5164_6a5499ea0a625.jpg.webp" },
-  pinkPowder:  { name: "桃花貴人滋養薰香粉",     price: "NT$420",    slug: "charm-incense-powder",         img: "5164_69d89cf4e92b0.jpg.webp" },
-  goldSpray:   { name: "財氣心香露 60ml",       price: "NT$280",    slug: "wealth-essence-spray-60ml",    img: "5164_6a5499d29c651.jpg.webp" },
-  dish:        { name: "極光薰香碟",             price: "NT$269",    slug: "aurora-incense-dish",          img: "5164_69b26f24d656e.jpeg.webp" }
-};
-
-const PRODUCTS = {
-  green: {
-    bath:    { ...ITEMS.greenBath,   why: "睡前的泡浴儀式，把今天慢慢洗掉" },
-    spray:   { ...ITEMS.greenSpray,  why: "噴在房間與織品上，讓空間聞起來不一樣" },
-    incense: { ...ITEMS.greenPowder, why: "點一盤，讓空間慢慢靜下來" }
-  },
-  blue: {
-    bath:    { ...ITEMS.blueBath,   why: "回家後的日常淨化儀式" },
-    spray:   { ...ITEMS.blueSpray,  why: "回家先幫空間換個頻，再開始自己的時間" },
-    incense: { ...ITEMS.bluePowder, why: "點一盤，回家後的空間淨化儀式" }
-  },
-  pink: {
-    bath:    { ...ITEMS.pinkBath,   why: "玫瑰桂花香氣，重要約會前的沐浴儀式" },
-    spray:   { ...ITEMS.pinkSpray,  why: "約會與聚會出門前，幫空間和衣物添一層花香" },
-    incense: { ...ITEMS.pinkPowder, why: "點一盤，讓房間常駐溫柔花香" }
-  },
-  gold: {
-    bath:    { ...ITEMS.goldSpray, why: "開工開市、月初理財的財位換頻儀式" },
-    spray:   { ...ITEMS.goldSpray, why: "開工開市、簽約提案前，先幫工作空間換個頻" },
-    incense: { ...ITEMS.goldSpray, why: "搭配極光薰香碟放在財位，成為你的月初儀式" }
+  function renderStart() {
+    step = -1; addedCount = 0;
+    lineScore = { green: 0, blue: 0, pink: 0, gold: 0 };
+    fmtScore = { bath: 0, spray: 0, incense: 0 };
+    root.innerHTML = shell(
+      '<div class="arq-panel arq-start">' +
+      '<div style="font-size:40px">🔮</div>' +
+      '<h3 style="font-size:19px;margin:8px 0 6px;font-weight:700">不知道第一件該選什麼？</h3>' +
+      '<p style="font-size:14.5px;color:#8d8574">每個人適合的日常儀式都不一樣。<br>回答 5 個生活小問題，我們幫你找到起點，<br>還有一份見面禮等你 🎁</p>' +
+      '<button class="arq-big" data-act="start">開始測驗</button></div>', false);
   }
-};
 
-const PAIRING  = { green: ITEMS.greenSpray, blue: ITEMS.blueSpray, pink: ITEMS.pinkSpray, gold: ITEMS.dish };
-const PAIR_ALT = { green: ITEMS.greenBath,  blue: ITEMS.blueBath,  pink: ITEMS.pinkBath,  gold: ITEMS.dish };
-
-const TYPES = {
-  green: { emoji: "🌙", color: "var(--green)", title: "睡前儀式型",
-    desc: "你的思緒常常加班。比起多做什麼，你更需要一段幫自己「關機」的固定儀式。" },
-  blue:  { emoji: "🍃", color: "var(--blue)", title: "環境感應型",
-    desc: "你對環境的訊號特別敏銳，出門一趟像跑了馬拉松。你需要的是回家後把自己收回來的日常淨化習慣。" },
-  pink:  { emoji: "🌸", color: "var(--pink)", title: "花香氛圍型",
-    desc: "你在意身邊的人與溫度。約會、聚會這些重要場合前，一段小小的儀式感能讓你用最喜歡的狀態出門。" },
-  gold:  { emoji: "✨", color: "var(--gold)", title: "豐盛起手型",
-    desc: "開工開市、月初理財、簽約提案——你喜歡把每個開始都好好對待。給工作空間一個換頻儀式，就是你的起手式。" }
-};
-
-let step = -1;
-const lineScore = { green: 0, blue: 0, pink: 0, gold: 0 };
-const fmtScore = { bath: 0, spray: 0, incense: 0 };
-const stage = document.getElementById("stage");
-const dotsEl = document.getElementById("dots");
-
-function renderDots() {
-  dotsEl.innerHTML = QUESTIONS.map((_, i) =>
-    `<div class="dot ${i <= step ? "on" : ""}"></div>`).join("");
-  dotsEl.style.visibility = (step >= 0 && step < QUESTIONS.length) ? "visible" : "hidden";
-}
-
-function renderStart() {
-  step = -1; renderDots();
-  for (const k in lineScore) lineScore[k] = 0;
-  for (const k in fmtScore) fmtScore[k] = 0;
-  stage.innerHTML = `
-    <div class="panel start-card">
-      <div style="font-size:40px">🔮</div>
-      <h2 style="font-size:19px;margin:8px 0 6px">不知道第一件該選什麼？</h2>
-      <p style="font-size:14.5px;color:var(--ink-soft)">
-        每個人適合的日常儀式都不一樣。<br>
-        回答 5 個生活小問題，我們幫你找到起點，<br>還有一份見面禮等你 🎁
-      </p>
-      <button class="big-btn" onclick="next()">開始測驗</button>
-    </div>`;
-}
-
-function next() {
-  step++;
-  renderDots();
-  if (step >= QUESTIONS.length) return renderResult();
-  const q = QUESTIONS[step];
-  stage.innerHTML = `
-    <div class="panel">
-      <div class="q-title">${q.q}</div>
-      ${q.opts.map((o, i) => `<button class="opt" onclick="pick(${i})">${o.t}</button>`).join("")}
-    </div>`;
-}
-
-function pick(i) {
-  const o = QUESTIONS[step].opts[i];
-  if (o.line) lineScore[o.line]++;
-  if (o.fmt) fmtScore[o.fmt]++;
-  next();
-}
-
-function topKey(obj, order) {
-  return order.reduce((best, k) => obj[k] > obj[best] ? k : best, order[0]);
-}
-
-function itemUrl(p, tag) {
-  return SHOP + p.slug + "?" + CONFIG.UTM + "&utm_content=" + tag;
-}
-
-function renderResult() {
-  renderDots();
-  const line = topKey(lineScore, ["blue", "green", "pink", "gold"]);
-  const fmt = topKey(fmtScore, ["bath", "spray", "incense"]);
-  const t = TYPES[line];
-  const main = PRODUCTS[line][fmt];
-  const pair = (fmt === "spray") ? PAIR_ALT[line] : PAIRING[line];
-  stage.innerHTML = `
-    <div class="panel result-card">
-      <span class="type-tag" style="background:${t.color}">你的儀式類型</span>
-      <h2>${t.emoji} ${t.title}</h2>
-      <p class="desc">${t.desc}</p>
-      <div class="hero">
-        <img src="${IMG + main.img}" alt="${main.name}">
-        <div>
-          <div class="label">最適合你的起點</div>
-          <div class="name">${main.name}</div>
-          <div class="why">${main.why}</div>
-          <div class="price">${main.price}</div>
-        </div>
-      </div>
-      <div class="coupon">
-        <div class="c-label">🎁 測驗完成見面禮｜${CONFIG.DISCOUNT_TEXT}</div>
-        <div class="code" id="code">${CONFIG.DISCOUNT_CODE}</div>
-        <button onclick="copyCode(this)">複製折扣碼</button>
-        <div class="hint">結帳時輸入即可折抵</div>
-      </div>
-      <a class="big-btn" href="${itemUrl(main, line + "-main")}" target="_top">🛒 帶折扣碼去下單</a>
-      <a class="pair-row" href="${itemUrl(pair, line + "-pair")}" target="_top">
-        <img src="${IMG + pair.img}" alt="${pair.name}">
-        <div>
-          <div class="p-label">很多人一起帶的搭檔</div>
-          <div class="p-name">${pair.name}</div>
-          <div class="p-price">${pair.price}</div>
-        </div>
-        <span class="go">＋一起帶</span>
-      </a>
-      <a class="ghost-btn" href="${LINKS.starter}?${CONFIG.UTM}&utm_content=starter" target="_top">看看首購推薦套組</a>
-      <a class="ghost-btn" href="${CONFIG.LINE_URL}" target="_blank">加 LINE 好友，會員購物金再領一筆</a>
-      <button class="ghost-btn" onclick="renderStart()">↻ 重新測一次</button>
-    </div>`;
-}
-
-function copyCode(btn) {
-  const code = CONFIG.DISCOUNT_CODE;
-  const done = () => { btn.textContent = "已複製 ✓"; setTimeout(() => btn.textContent = "複製折扣碼", 2000); };
-  if (navigator.clipboard) navigator.clipboard.writeText(code).then(done);
-  else {
-    const ta = document.createElement("textarea");
-    ta.value = code; document.body.appendChild(ta); ta.select();
-    document.execCommand("copy"); ta.remove(); done();
+  function renderQ() {
+    var q = QUESTIONS[step], html = '<div class="arq-panel"><div class="arq-qtitle">' + q.q + "</div>";
+    for (var i = 0; i < q.opts.length; i++) html += '<button class="arq-opt" data-act="pick" data-i="' + i + '">' + q.opts[i].t + "</button>";
+    root.innerHTML = shell(html + "</div>", true);
   }
-}
 
-renderStart();
+  function next() {
+    step++;
+    if (step >= QUESTIONS.length) return renderResult();
+    renderQ();
+  }
+
+  function topKey(obj, order) {
+    var best = order[0];
+    for (var i = 1; i < order.length; i++) if (obj[order[i]] > obj[best]) best = order[i];
+    return best;
+  }
+
+  function addBtn(key, extraCls) {
+    return '<button class="arq-add' + (extraCls || "") + '" data-act="add" data-key="' + key + '">＋ 加入購物車</button>';
+  }
+
+  function renderResult() {
+    var line = topKey(lineScore, ["blue", "green", "pink", "gold"]);
+    var fmt = topKey(fmtScore, ["bath", "spray", "incense"]);
+    var t = TYPES[line];
+    current.main = PRODUCTS[line][fmt];
+    current.pair = (fmt === "spray") ? PAIR_ALT[line] : PAIRING[line];
+    current.line = line;
+    root.innerHTML = shell(
+      '<div class="arq-panel arq-result">' +
+      '<span class="arq-tag" style="background:' + t.color + '">你的儀式類型</span>' +
+      "<h3>" + t.emoji + " " + t.title + "</h3>" +
+      '<p class="arq-desc">' + t.desc + "</p>" +
+      '<div class="arq-hero"><img src="' + IMG + current.main.img + '" alt="' + esc(current.main.name) + '"><div>' +
+      '<div class="l">最適合你的起點</div><div class="n">' + current.main.name + '</div>' +
+      '<div class="w">' + current.main.why + '</div><div class="p">' + current.main.price + "</div>" +
+      addBtn("main") + '<a class="arq-view" href="' + itemUrl(current.main, line + "-main") + '" target="_top">看介紹</a>' +
+      "</div></div>" +
+      '<div class="arq-pair"><img src="' + IMG + current.pair.img + '" alt="' + esc(current.pair.name) + '"><div>' +
+      '<div class="pl">很多人一起帶的搭檔</div>' +
+      '<div class="pn"><a href="' + itemUrl(current.pair, line + "-pair") + '" target="_top">' + current.pair.name + "</a></div>" +
+      '<div class="pp">' + current.pair.price + "</div></div>" + addBtn("pair") + "</div>" +
+      '<div class="arq-status" data-role="status"></div>' +
+      '<div class="arq-coupon"><div class="cl">🎁 測驗完成見面禮｜' + CONFIG.DISCOUNT_TEXT + "</div>" +
+      '<div class="cc">' + CONFIG.DISCOUNT_CODE + "</div>" +
+      '<button data-act="copy">複製折扣碼</button><div class="ch">結帳時輸入即可折抵</div></div>' +
+      '<a class="arq-big" href="' + (SAME_ORIGIN ? "/order_form" : itemUrl(current.main, line + "-checkout")) + '" target="_top">🛒 前往結帳，輸入折扣碼</a>' +
+      '<a class="arq-ghost" href="' + CONFIG.SHOP + "/category/%E9%A6%96%E6%AC%A1%E4%BD%BF%E7%94%A8%E6%8E%A8%E8%96%A6?" + CONFIG.UTM + '&utm_content=starter" target="_top">看看首購推薦套組</a>' +
+      '<a class="arq-ghost" href="' + CONFIG.LINE_URL + '" target="_blank" rel="noopener">加 LINE 好友，會員購物金再領一筆</a>' +
+      '<button class="arq-ghost" data-act="restart">↻ 重新測一次</button>' +
+      "</div>", true);
+  }
+
+  function addToCart(key, btn) {
+    var item = current[key];
+    if (!item) return;
+    if (!SAME_ORIGIN) { // 預覽模式（GitHub Pages / 本機）：退回商品頁
+      window.top.location.href = itemUrl(item, current.line + "-" + key);
+      return;
+    }
+    btn.disabled = true; btn.textContent = "加入中…";
+    var token = (document.querySelector('meta[name="csrf-token"]') || {}).content || "";
+    var webinfo = btoa(encodeURIComponent(JSON.stringify({ id: null, name: null, phone: null, email: null, connect_email: null })));
+    fetch("/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "X-CSRF-TOKEN": token, "WEB-INFO": webinfo, "X-Requested-With": "XMLHttpRequest"
+      },
+      body: "product_id=" + item.pid + "&product_spec_id=" + (item.spec || "") +
+            "&booking_setting_id=&product_periodic_setting_id=&quantity=1&input_min=1&input_max=1"
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      if (j && j.result === "success") {
+        addedCount++;
+        btn.textContent = "✓ 已加入";
+        btn.classList.add("ok");
+        var s = root.querySelector('[data-role="status"]');
+        s.textContent = "✓ 已加入購物車（" + addedCount + " 件）— 記得複製下方折扣碼再結帳";
+        s.classList.add("show");
+      } else { throw new Error("add failed"); }
+    }).catch(function () { // 任何失敗都退回商品頁，讓客人用官網原生按鈕
+      window.top.location.href = itemUrl(item, current.line + "-" + key);
+    });
+  }
+
+  function copyCode(btn) {
+    var code = CONFIG.DISCOUNT_CODE;
+    var done = function () { btn.textContent = "已複製 ✓"; setTimeout(function () { btn.textContent = "複製折扣碼"; }, 2000); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(code).then(done); }
+    else {
+      var ta = document.createElement("textarea");
+      ta.value = code; document.body.appendChild(ta); ta.select();
+      document.execCommand("copy"); ta.remove(); done();
+    }
+  }
+
+  root.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-act]");
+    if (!el) return;
+    var act = el.getAttribute("data-act");
+    if (act === "start") next();
+    else if (act === "pick") {
+      var o = QUESTIONS[step].opts[+el.getAttribute("data-i")];
+      if (o.line) lineScore[o.line]++;
+      if (o.fmt) fmtScore[o.fmt]++;
+      next();
+    }
+    else if (act === "add") addToCart(el.getAttribute("data-key"), el);
+    else if (act === "copy") copyCode(el);
+    else if (act === "restart") renderStart();
+  });
+
+  renderStart();
+})();
 </script>
+<!-- ▲▲▲ BVSHOP 嵌入終點 ▲▲▲ -->
+
 </body>
 </html>
