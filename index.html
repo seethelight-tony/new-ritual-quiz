@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 分鐘找到你的日常儀式｜極光盾</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #e6ca5c; --brand-deep: #a8871f;
+    --ink: #4a4437; --ink-soft: #8d8574;
+    --bg: #faf7ef; --card: #ffffff; --line: #ede7d6;
+    --green: #6f8f6a; --blue: #6d87a8; --pink: #c58a96; --gold: #bfa14a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: "Noto Sans TC", sans-serif;
+    background: var(--bg); color: var(--ink);
+    line-height: 1.65; padding: 18px 14px 28px;
+    display: flex; justify-content: center;
+  }
+  .app { width: 100%; max-width: 430px; }
+  .head { text-align: center; margin-bottom: 14px; }
+  .head .kicker { font-size: 12.5px; letter-spacing: 3px; color: var(--brand-deep); }
+  .head h1 { font-size: 21px; font-weight: 700; margin-top: 2px; }
+  .head p { font-size: 13.5px; color: var(--ink-soft); margin-top: 4px; }
+
+  .dots { display: flex; justify-content: center; gap: 7px; margin: 14px 0; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: all .25s; }
+  .dot.on { background: var(--brand-deep); transform: scale(1.25); }
+
+  .panel { animation: fade .3s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .q-title { font-size: 17.5px; font-weight: 700; text-align: center; margin: 6px 0 16px; }
+  .opt {
+    display: block; width: 100%; text-align: left;
+    background: var(--card); border: 1.5px solid var(--line);
+    border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+    font-family: inherit; font-size: 15px; color: var(--ink);
+    cursor: pointer; transition: all .15s;
+  }
+  .opt:active { transform: scale(.98); }
+  .opt:hover { border-color: var(--brand); background: #fffdf5; }
+  .opt .emo { margin-right: 8px; }
+
+  .start-card, .result-card {
+    background: var(--card); border: 1.5px solid var(--line);
+    border-radius: 18px; padding: 22px 20px; text-align: center;
+  }
+  .big-btn {
+    display: block; width: 100%; border: none; cursor: pointer;
+    background: var(--brand); color: #4a3b0c;
+    font-family: inherit; font-size: 16.5px; font-weight: 700; letter-spacing: 2px;
+    padding: 14px; border-radius: 14px; margin-top: 16px;
+    text-decoration: none;
+  }
+  .big-btn:hover { background: #ddbf47; }
+  .ghost-btn {
+    display: block; width: 100%; border: 1.5px solid var(--line); cursor: pointer;
+    background: transparent; color: var(--ink-soft);
+    font-family: inherit; font-size: 14px; padding: 11px; border-radius: 12px; margin-top: 10px;
+    text-decoration: none;
+  }
+  .type-tag {
+    display: inline-block; font-size: 13px; font-weight: 500;
+    padding: 4px 14px; border-radius: 99px; color: #fff; letter-spacing: 1px;
+  }
+  .result-card h2 { font-size: 22px; font-weight: 700; margin: 10px 0 4px; }
+  .result-card .desc { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 14px; }
+  .rec {
+    text-align: left; background: #fdfaf1; border: 1px dashed var(--brand);
+    border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+  }
+  .rec .label { font-size: 12px; color: var(--brand-deep); letter-spacing: 2px; }
+  .rec .name { font-size: 16px; font-weight: 700; margin: 2px 0; }
+  .rec .why { font-size: 13.5px; color: var(--ink-soft); }
+  .rec .price { font-size: 14px; font-weight: 500; color: var(--brand-deep); margin-top: 4px; }
+
+  .coupon {
+    background: linear-gradient(135deg, #fdf3d3, #fbeab7);
+    border-radius: 14px; padding: 14px; margin: 14px 0 4px;
+  }
+  .coupon .c-label { font-size: 13px; color: #7a6215; }
+  .coupon .code {
+    font-size: 24px; font-weight: 700; letter-spacing: 4px; color: #5c4a10;
+    margin: 4px 0;
+  }
+  .coupon button {
+    border: none; background: #5c4a10; color: #fdf3d3; cursor: pointer;
+    font-family: inherit; font-size: 13px; padding: 7px 18px; border-radius: 99px;
+  }
+  .coupon .hint { font-size: 12px; color: #9a8340; margin-top: 6px; }
+
+  .foot { font-size: 11.5px; color: #b3ab99; text-align: center; margin-top: 16px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="head">
+    <div class="kicker">AURORA SHIELD・極光盾</div>
+    <h1>1 分鐘找到你的日常儀式</h1>
+    <p>5 個小問題，找到最適合你的第一件淨化儀式小物</p>
+  </div>
+  <div class="dots" id="dots"></div>
+  <div id="stage"></div>
+  <p class="foot">這個小測驗幫你認識自己的偏好，不是醫療或命理建議。<br>若使用產品過程有不適，請先暫停並視情況尋求專業協助。</p>
+</div>
+
+<script>
+/* ====== 站長設定區（Tony 只要改這裡）====== */
+const CONFIG = {
+  DISCOUNT_CODE: "RITUAL50",            // 到 BVSHOP 後台建立同名折扣碼後改這裡
+  DISCOUNT_TEXT: "首購輸入折扣碼現折 NT$50",  // 折扣內容說明
+  LINE_URL: "https://line.me/ti/p/~@003lnjai",
+  UTM: "utm_source=website&utm_medium=quiz&utm_campaign=ritual_quiz"
+};
+const LINKS = {
+  green: "https://seethelight.shop/category/%E6%83%85%E7%B7%92%E8%88%92%E7%B7%A9%E6%94%BE%E9%AC%86",
+  blue:  "https://seethelight.shop/category/%E9%AB%98%E6%95%8F%E6%84%9F%E4%BA%BA%E5%BF%85%E9%81%B8",
+  pink:  "https://seethelight.shop/category/%E6%8B%9B%E8%B2%A1%E8%B2%B4%E4%BA%BA%E6%A1%83%E8%8A%B1%E5%B7%A5%E4%BD%9C%E9%81%8B",
+  gold:  "https://seethelight.shop/category/%E6%8B%9B%E8%B2%A1%E8%B2%B4%E4%BA%BA%E6%A1%83%E8%8A%B1%E5%B7%A5%E4%BD%9C%E9%81%8B",
+  starter: "https://seethelight.shop/category/%E9%A6%96%E6%AC%A1%E4%BD%BF%E7%94%A8%E6%8E%A8%E8%96%A6"
+};
+/* ========================================= */
+
+const QUESTIONS = [
+  {
+    q: "最近的你，哪一句最有感？",
+    opts: [
+      { t: "🌙 腦子常常下不了班，睡前想東想西", line: "green" },
+      { t: "🍃 人多的地方待久了，整個人像被抽乾", line: "blue" },
+      { t: "🌸 想讓生活多一點人與人的溫度", line: "pink" },
+      { t: "✨ 新的階段要開始了，想好好起頭", line: "gold" }
+    ]
+  },
+  {
+    q: "走進一個空間，你最先注意到什麼？",
+    opts: [
+      { t: "🛋 安不安靜、能不能讓我放鬆", line: "green" },
+      { t: "👀 氣氛對不對勁，我很容易受環境影響", line: "blue" },
+      { t: "💬 氣氛熱不熱絡、有沒有聊得來的人", line: "pink" },
+      { t: "📈 這個地方有沒有機會、值不值得經營", line: "gold" }
+    ]
+  },
+  {
+    q: "送你一天完全屬於自己的假，你想怎麼過？",
+    opts: [
+      { t: "🛁 在家放空，把自己好好收回來", line: "green" },
+      { t: "⛰ 遠離人群，找個安靜的地方充電", line: "blue" },
+      { t: "☕ 約在乎的人見面，好好聊聊", line: "pink" },
+      { t: "📒 整理計畫，把想做的事往前推一格", line: "gold" }
+    ]
+  },
+  {
+    q: "哪一種小儀式最像你會做的事？",
+    opts: [
+      { t: "🛁 睡前泡個澡，把今天慢慢洗掉", fmt: "bath" },
+      { t: "💨 幫房間、車上或包包織品換個氣味", fmt: "spray" },
+      { t: "🕯 點一盤香，讓空間慢慢靜下來", fmt: "incense" }
+    ]
+  },
+  {
+    q: "忙完一整天回到家，第一件想做的事是？",
+    opts: [
+      { t: "🚿 先洗澡，其他等等再說", fmt: "bath" },
+      { t: "🛋 換上家居服，窩進自己的角落", fmt: "incense" },
+      { t: "📱 先癱著滑手機，越不費力越好", fmt: "spray" }
+    ]
+  }
+];
+
+const PRODUCTS = {
+  green: {
+    bath:    { name: "情緒安神淨化包（綠標）", price: "NT$399 起", why: "睡前的泡浴儀式，把今天慢慢洗掉" },
+    spray:   { name: "平安靜心露 60ml", price: "NT$230", why: "噴在房間與織品上，讓空間聞起來不一樣" },
+    incense: { name: "情緒安神薰香粉", price: "NT$420", why: "點一盤，讓空間慢慢靜下來" }
+  },
+  blue: {
+    bath:    { name: "深層能量淨化包（藍標）", price: "NT$399 起", why: "回家後的日常淨化儀式" },
+    spray:   { name: "深層淨化露 60ml", price: "NT$230", why: "回家先幫空間換個頻，再開始自己的時間" },
+    incense: { name: "深層能量淨化包（藍標）", price: "NT$399 起", why: "搭配極光薰香碟，就是你的空間儀式角落" }
+  },
+  pink: {
+    bath:    { name: "桃花貴人滋養包（紅標）", price: "NT$399 起", why: "玫瑰桂花香氣，重要約會前的沐浴儀式" },
+    spray:   { name: "桃花舒心露 60ml", price: "NT$230", why: "約會與聚會出門前，幫空間和衣物添一層花香" },
+    incense: { name: "桃花貴人滋養包（紅標）", price: "NT$399 起", why: "搭配極光薰香碟，讓房間常駐溫柔花香" }
+  },
+  gold: {
+    bath:    { name: "財氣心香露 60ml", price: "NT$280", why: "開工開市、月初理財的財位換頻儀式" },
+    spray:   { name: "財氣心香露 60ml", price: "NT$280", why: "開工開市、簽約提案前，先幫工作空間換個頻" },
+    incense: { name: "財氣心香露 60ml", price: "NT$280", why: "搭配極光薰香碟放在財位，成為你的月初儀式" }
+  }
+};
+
+const PAIRING = {
+  green: { name: "平安靜心露 60ml", price: "NT$230" },
+  blue:  { name: "深層淨化露 60ml", price: "NT$230" },
+  pink:  { name: "桃花舒心露 60ml", price: "NT$230" },
+  gold:  { name: "極光薰香碟", price: "NT$269" }
+};
+
+const TYPES = {
+  green: { emoji: "🌙", color: "var(--green)", title: "睡前儀式型",
+    desc: "你的思緒常常加班。比起多做什麼，你更需要一段幫自己「關機」的固定儀式。" },
+  blue:  { emoji: "🍃", color: "var(--blue)", title: "環境感應型",
+    desc: "你對環境的訊號特別敏銳，出門一趟像跑了馬拉松。你需要的是回家後把自己收回來的日常淨化習慣。" },
+  pink:  { emoji: "🌸", color: "var(--pink)", title: "花香氛圍型",
+    desc: "你在意身邊的人與溫度。約會、聚會這些重要場合前，一段小小的儀式感能讓你用最喜歡的狀態出門。" },
+  gold:  { emoji: "✨", color: "var(--gold)", title: "豐盛起手型",
+    desc: "開工開市、月初理財、簽約提案——你喜歡把每個開始都好好對待。給工作空間一個換頻儀式，就是你的起手式。" }
+};
+
+let step = -1;
+const lineScore = { green: 0, blue: 0, pink: 0, gold: 0 };
+const fmtScore = { bath: 0, spray: 0, incense: 0 };
+const stage = document.getElementById("stage");
+const dotsEl = document.getElementById("dots");
+
+function renderDots() {
+  dotsEl.innerHTML = QUESTIONS.map((_, i) =>
+    `<div class="dot ${i <= step ? "on" : ""}"></div>`).join("");
+  dotsEl.style.visibility = (step >= 0 && step < QUESTIONS.length) ? "visible" : "hidden";
+}
+
+function renderStart() {
+  step = -1; renderDots();
+  for (const k in lineScore) lineScore[k] = 0;
+  for (const k in fmtScore) fmtScore[k] = 0;
+  stage.innerHTML = `
+    <div class="panel start-card">
+      <div style="font-size:40px">🔮</div>
+      <h2 style="font-size:19px;margin:8px 0 6px">不知道第一件該選什麼？</h2>
+      <p style="font-size:14.5px;color:var(--ink-soft)">
+        每個人適合的日常儀式都不一樣。<br>
+        回答 5 個生活小問題，我們幫你找到起點，<br>還有一份見面禮等你 🎁
+      </p>
+      <button class="big-btn" onclick="next()">開始測驗</button>
+    </div>`;
+}
+
+function next() {
+  step++;
+  renderDots();
+  if (step >= QUESTIONS.length) return renderResult();
+  const q = QUESTIONS[step];
+  stage.innerHTML = `
+    <div class="panel">
+      <div class="q-title">${q.q}</div>
+      ${q.opts.map((o, i) => `<button class="opt" onclick="pick(${i})">${o.t}</button>`).join("")}
+    </div>`;
+}
+
+function pick(i) {
+  const o = QUESTIONS[step].opts[i];
+  if (o.line) lineScore[o.line]++;
+  if (o.fmt) fmtScore[o.fmt]++;
+  next();
+}
+
+function topKey(obj, order) {
+  return order.reduce((best, k) => obj[k] > obj[best] ? k : best, order[0]);
+}
+
+function renderResult() {
+  renderDots();
+  const line = topKey(lineScore, ["blue", "green", "pink", "gold"]);
+  const fmt = topKey(fmtScore, ["bath", "spray", "incense"]);
+  const t = TYPES[line];
+  const main = PRODUCTS[line][fmt];
+  const pair = PAIRING[line];
+  const url = LINKS[line] + "?" + CONFIG.UTM + "&utm_content=" + line;
+  stage.innerHTML = `
+    <div class="panel result-card">
+      <span class="type-tag" style="background:${t.color}">你的儀式類型</span>
+      <h2>${t.emoji} ${t.title}</h2>
+      <p class="desc">${t.desc}</p>
+      <div class="rec">
+        <div class="label">最適合你的起點</div>
+        <div class="name">${main.name}</div>
+        <div class="why">${main.why}</div>
+        <div class="price">${main.price}</div>
+      </div>
+      <div class="rec" style="border-style:solid;border-color:var(--line)">
+        <div class="label">很多人一起帶的搭檔</div>
+        <div class="name">${pair.name}</div>
+        <div class="price">${pair.price}</div>
+      </div>
+      <div class="coupon">
+        <div class="c-label">🎁 測驗完成見面禮｜${CONFIG.DISCOUNT_TEXT}</div>
+        <div class="code" id="code">${CONFIG.DISCOUNT_CODE}</div>
+        <button onclick="copyCode(this)">複製折扣碼</button>
+        <div class="hint">結帳時輸入即可折抵</div>
+      </div>
+      <a class="big-btn" href="${url}" target="_top">帶著答案去逛 →</a>
+      <a class="ghost-btn" href="${LINKS.starter}?${CONFIG.UTM}&utm_content=starter" target="_top">看看首購推薦套組</a>
+      <a class="ghost-btn" href="${CONFIG.LINE_URL}" target="_blank">加 LINE 好友，會員購物金再領一筆</a>
+      <button class="ghost-btn" onclick="renderStart()">↻ 重新測一次</button>
+    </div>`;
+}
+
+function copyCode(btn) {
+  const code = CONFIG.DISCOUNT_CODE;
+  const done = () => { btn.textContent = "已複製 ✓"; setTimeout(() => btn.textContent = "複製折扣碼", 2000); };
+  if (navigator.clipboard) navigator.clipboard.writeText(code).then(done);
+  else {
+    const ta = document.createElement("textarea");
+    ta.value = code; document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); ta.remove(); done();
+  }
+}
+
+renderStart();
+</script>
+</body>
+</html>
