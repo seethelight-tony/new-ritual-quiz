@@ -1,0 +1,278 @@
+<!-- ▼▼▼ BVSHOP 嵌入起點：從這行以下、到「嵌入終點」為止，整段複製貼進官網的 HTML 元件 ▼▼▼ -->
+<div id="arq-app"></div>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+#arq-app {
+  --arq-brand: #e6ca5c; --arq-deep: #a8871f;
+  --arq-ink: #4a4437; --arq-soft: #8d8574;
+  --arq-card: #ffffff; --arq-line: #ede7d6;
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  color: var(--arq-ink); line-height: 1.65;
+  max-width: 430px; margin: 0 auto; padding: 18px 14px 28px;
+  box-sizing: border-box;
+}
+#arq-app *, #arq-app *::before, #arq-app *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+#arq-app .arq-head { text-align: center; margin-bottom: 14px; }
+#arq-app .arq-head h2 { font-size: 21px; font-weight: 700; color: var(--arq-ink); }
+#arq-app .arq-head p { font-size: 13.5px; color: var(--arq-soft); margin-top: 4px; }
+#arq-app .arq-dots { display: flex; justify-content: center; gap: 7px; margin: 14px 0; }
+#arq-app .arq-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--arq-line); transition: all .25s; }
+#arq-app .arq-dot.on { background: var(--arq-deep); transform: scale(1.25); }
+#arq-app .arq-panel { animation: arqfade .3s ease; }
+@keyframes arqfade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+#arq-app .arq-qtitle { font-size: 17.5px; font-weight: 700; text-align: center; margin: 6px 0 16px; }
+#arq-app button.arq-opt {
+  display: block; width: 100%; text-align: left;
+  background: var(--arq-card); border: 1.5px solid var(--arq-line);
+  border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+  font-family: inherit; font-size: 15px; color: var(--arq-ink);
+  cursor: pointer; transition: all .15s; line-height: 1.55;
+}
+#arq-app button.arq-opt:hover { border-color: var(--arq-brand); background: #fffdf5; }
+#arq-app button.arq-opt:active { transform: scale(.98); }
+#arq-app .arq-start, #arq-app .arq-result {
+  background: var(--arq-card); border: 1.5px solid var(--arq-line);
+  border-radius: 18px; padding: 22px 18px; text-align: center;
+}
+#arq-app .arq-big {
+  display: block; width: 100%; border: none; cursor: pointer;
+  background: var(--arq-brand); color: #4a3b0c;
+  font-family: inherit; font-size: 16.5px; font-weight: 700; letter-spacing: 1px;
+  padding: 15px; border-radius: 14px; margin-top: 6px;
+  text-decoration: none; text-align: center;
+}
+#arq-app .arq-big:hover { background: #ddbf47; }
+#arq-app .arq-big:disabled { opacity: .7; cursor: wait; }
+#arq-app .arq-big.checkout { background: #3e7d54; color: #fff; }
+#arq-app .arq-big.checkout:hover { background: #35704a; }
+#arq-app .arq-ghost {
+  display: block; width: 100%; border: none; cursor: pointer;
+  background: transparent; color: var(--arq-soft);
+  font-family: inherit; font-size: 13.5px; padding: 10px; margin-top: 8px;
+  text-decoration: underline; text-align: center;
+}
+#arq-app .arq-tag {
+  display: inline-block; font-size: 13px; font-weight: 500;
+  padding: 4px 14px; border-radius: 99px; color: #fff; letter-spacing: 1px;
+}
+#arq-app .arq-result h3 { font-size: 22px; font-weight: 700; margin: 10px 0 4px; color: var(--arq-ink); }
+#arq-app .arq-desc { font-size: 14px; color: var(--arq-soft); margin-bottom: 16px; }
+#arq-app .arq-combo {
+  text-align: left; background: #fdfaf1; border: 1.5px solid var(--arq-brand);
+  border-radius: 16px; padding: 14px; margin-bottom: 12px;
+}
+#arq-app .arq-combo .ctitle { font-size: 15.5px; font-weight: 700; color: var(--arq-ink); }
+#arq-app .arq-combo .csub { font-size: 12.5px; color: var(--arq-soft); margin-bottom: 10px; }
+#arq-app .arq-line { display: flex; gap: 11px; align-items: center; padding: 7px 0; border-top: 1px solid var(--arq-line); }
+#arq-app .arq-line:first-of-type { border-top: none; }
+#arq-app .arq-line img { width: 52px; height: 52px; object-fit: cover; border-radius: 9px; flex: none; background: #f1ecdd; }
+#arq-app .arq-line .ln { font-size: 13.5px; font-weight: 500; line-height: 1.4; }
+#arq-app .arq-line .lp { font-size: 12.5px; color: var(--arq-soft); margin-left: auto; flex: none; }
+#arq-app .arq-total { display: flex; align-items: baseline; justify-content: flex-end; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--arq-brand); }
+#arq-app .arq-total .tl { font-size: 13px; color: var(--arq-soft); }
+#arq-app .arq-total .tp { font-size: 20px; font-weight: 700; color: var(--arq-deep); }
+#arq-app .arq-offer { background: linear-gradient(135deg, #fdf3d3, #fbeab7); border-radius: 14px; padding: 13px 15px; margin-bottom: 12px; text-align: left; }
+#arq-app .arq-offer .ot { font-size: 13.5px; font-weight: 700; color: #7a6215; margin-bottom: 7px; }
+#arq-app .arq-offer ul { list-style: none; }
+#arq-app .arq-offer li { font-size: 13px; color: #6b5712; padding: 2px 0 2px 18px; position: relative; }
+#arq-app .arq-offer li::before { content: "＋"; position: absolute; left: 0; color: var(--arq-deep); font-weight: 700; }
+#arq-app .arq-offer li.first::before { content: "🎁"; left: -1px; }
+#arq-app .arq-code { display: flex; align-items: center; gap: 10px; margin-top: 9px; padding-top: 9px; border-top: 1px dashed #d9be6a; }
+#arq-app .arq-code .cc { font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #5c4a10; }
+#arq-app .arq-code button { border: none; background: #5c4a10; color: #fdf3d3; cursor: pointer; font-family: inherit; font-size: 12px; padding: 6px 14px; border-radius: 99px; margin-left: auto; flex: none; }
+#arq-app .arq-code .note { font-size: 11px; color: #9a8340; }
+#arq-app .arq-status { display: none; background: #eaf3e6; color: #3e6b47; font-size: 13.5px; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; text-align: left; }
+#arq-app .arq-status.show { display: block; }
+#arq-app .arq-foot { font-size: 11.5px; color: #b3ab99; text-align: center; margin-top: 16px; line-height: 1.6; }
+</style>
+<script>
+(function () {
+  /* ====== 站長設定區 ====== */
+  var CONFIG = {
+    DISCOUNT_CODE: "RITUAL50",
+    LINE_URL: "https://line.me/ti/p/~@003lnjai",
+    UTM: "utm_source=website&utm_medium=quiz&utm_campaign=ritual_quiz",
+    SHOP: "https://seethelight.shop"
+  };
+  /* ======================== */
+
+  var IMG = "https://image.bvshop.tw/5164/product/";
+  var SAME_ORIGIN = location.hostname.replace(/^www\./, "") === "seethelight.shop";
+
+  // 主推商品：去去粉淨化套組（一個 SKU、4 種品項，對應 4 種測驗類型）
+  var SET = { pid: 560102, name: "去去粉淨化套組", price: 999, orig: 1078, slug: "lucky-shower-set", img: "5164_69d898d4b804a.jpg.webp" };
+
+  var TYPES = {
+    green: { emoji: "🌙", color: "#6f8f6a", title: "睡前儀式型",
+      desc: "你的思緒常常加班。你需要的是一段幫自己「關機」的固定儀式。",
+      theme: "安神組", spec: 1914152, contains: "藍標＋紅標薰香粉 ＋ 平安靜心露" },
+    blue: { emoji: "🍃", color: "#6d87a8", title: "環境感應型",
+      desc: "你對環境的訊號特別敏銳，出門一趟像跑了馬拉松。回家後把自己收回來最重要。",
+      theme: "深層防護組", spec: 1914156, contains: "藍標＋紅標薰香粉 ＋ 深層淨化露" },
+    pink: { emoji: "🌸", color: "#c58a96", title: "花香氛圍型",
+      desc: "你在意身邊的人與溫度。重要場合前，一段小儀式讓你用最喜歡的狀態出門。",
+      theme: "貴人組", spec: 1914159, contains: "綠標＋紅標薰香粉 ＋ 桃花舒心露" },
+    gold: { emoji: "✨", color: "#bfa14a", title: "豐盛起手型",
+      desc: "開工開市、月初理財、簽約提案——你喜歡把每個開始都好好對待。",
+      theme: "招財組", spec: 1914158, contains: "綠標＋紅標薰香粉 ＋ 財氣心香露" }
+  };
+
+  var QUESTIONS = [
+    { q: "最近的你，哪一句最有感？", opts: [
+      { t: "🌙 腦子常常下不了班，睡前想東想西", line: "green" },
+      { t: "🍃 人多的地方待久了，整個人像被抽乾", line: "blue" },
+      { t: "🌸 想讓生活多一點人與人的溫度", line: "pink" },
+      { t: "✨ 新的階段要開始了，想好好起頭", line: "gold" } ] },
+    { q: "走進一個空間，你最先注意到什麼？", opts: [
+      { t: "🛋 安不安靜、能不能讓我放鬆", line: "green" },
+      { t: "👀 氣氛對不對勁，我很容易受環境影響", line: "blue" },
+      { t: "💬 氣氛熱不熱絡、有沒有聊得來的人", line: "pink" },
+      { t: "📈 這個地方有沒有機會、值不值得經營", line: "gold" } ] },
+    { q: "送你一天完全屬於自己的假，你想怎麼過？", opts: [
+      { t: "🛁 在家放空，把自己好好收回來", line: "green" },
+      { t: "⛰ 遠離人群，找個安靜的地方充電", line: "blue" },
+      { t: "☕ 約在乎的人見面，好好聊聊", line: "pink" },
+      { t: "📒 整理計畫，把想做的事往前推一格", line: "gold" } ] },
+    { q: "哪一種小儀式最像你會做的事？", opts: [
+      { t: "🛁 睡前泡個澡，把今天慢慢洗掉", fmt: "bath" },
+      { t: "💨 幫房間、車上或包包織品換個氣味", fmt: "spray" },
+      { t: "🕯 點一盤香，讓空間慢慢靜下來", fmt: "incense" } ] },
+    { q: "忙完一整天回到家，第一件想做的事是？", opts: [
+      { t: "🚿 先洗澡，其他等等再說", fmt: "bath" },
+      { t: "🛋 換上家居服，窩進自己的角落", fmt: "incense" },
+      { t: "📱 先癱著滑手機，越不費力越好", fmt: "spray" } ] }
+  ];
+
+  var root = document.getElementById("arq-app");
+  var step = -1, lineScore, fmtScore, added = false;
+  var current = null;
+
+  function setUrl(tag) { return CONFIG.SHOP + "/item/" + SET.slug + "?" + CONFIG.UTM + "&utm_content=" + tag; }
+  function esc(s) { return String(s).replace(/"/g, "&quot;"); }
+
+  function shell(inner, showDots) {
+    var dots = "";
+    for (var i = 0; i < QUESTIONS.length; i++) dots += '<div class="arq-dot' + (i <= step ? " on" : "") + '"></div>';
+    return '<div class="arq-head"><h2>1 分鐘找到你的日常儀式</h2><p>5 個小問題，找到最適合你的儀式組合</p></div>' +
+      '<div class="arq-dots" style="visibility:' + (showDots ? "visible" : "hidden") + '">' + dots + "</div>" + inner +
+      '<p class="arq-foot">這個小測驗幫你認識自己的偏好，不是醫療或命理建議。<br>若使用產品過程有不適，請先暫停並視情況尋求專業協助。</p>';
+  }
+
+  function renderStart() {
+    step = -1; added = false; current = null;
+    lineScore = { green: 0, blue: 0, pink: 0, gold: 0 };
+    fmtScore = { bath: 0, spray: 0, incense: 0 };
+    root.innerHTML = shell(
+      '<div class="arq-panel arq-start">' +
+      '<div style="font-size:40px">🔮</div>' +
+      '<h3 style="font-size:19px;margin:8px 0 6px;font-weight:700">不知道第一次該怎麼買？</h3>' +
+      '<p style="font-size:14.5px;color:#8d8574">回答 5 個生活小問題，<br>我們幫你配好最適合的儀式組合，<br>還有一份見面禮等你 🎁</p>' +
+      '<button class="arq-big" data-act="start">開始測驗</button></div>', false);
+  }
+
+  function renderQ() {
+    var q = QUESTIONS[step], html = '<div class="arq-panel"><div class="arq-qtitle">' + q.q + "</div>";
+    for (var i = 0; i < q.opts.length; i++) html += '<button class="arq-opt" data-act="pick" data-i="' + i + '">' + q.opts[i].t + "</button>";
+    root.innerHTML = shell(html + "</div>", true);
+  }
+
+  function next() { step++; if (step >= QUESTIONS.length) return renderResult(); renderQ(); }
+
+  function topKey(obj, order) {
+    var best = order[0];
+    for (var i = 1; i < order.length; i++) if (obj[order[i]] > obj[best]) best = order[i];
+    return best;
+  }
+
+  function renderResult() {
+    var line = topKey(lineScore, ["blue", "green", "pink", "gold"]);
+    var t = TYPES[line];
+    current = t;
+    root.innerHTML = shell(
+      '<div class="arq-panel arq-result">' +
+      '<span class="arq-tag" style="background:' + t.color + '">你的儀式類型</span>' +
+      "<h3>" + t.emoji + " " + t.title + "</h3>" +
+      '<p class="arq-desc">' + t.desc + "</p>" +
+      '<div class="arq-combo"><div class="ctitle">為你配好的：' + SET.name + " ·【" + t.theme + "】</div>" +
+      '<div class="csub">薰香粉 ×2 ＋ 能量噴霧 ×1，一組建立日常淨化基底</div>' +
+      '<div class="arq-line"><img src="' + IMG + SET.img + '" alt="' + esc(SET.name) + '">' +
+      '<div class="ln">' + t.contains + '<div style="font-size:12px;color:#8d8574;font-weight:400;margin-top:2px">依你的類型自動配好「' + t.theme + '」</div></div>' +
+      '<div class="lp">NT$' + SET.price + "</div></div>" +
+      '<div class="arq-total"><span class="tl">組合價（原價 $' + SET.orig + "）</span><span class=\"tp\">NT$" + SET.price + "</span></div></div>" +
+      '<div class="arq-offer"><div class="ot">這組現在可享的優惠</div><ul>' +
+      '<li class="first">折扣碼首購現折 $50</li>' +
+      '<li>結帳加入會員，送 $50 購物金</li>' +
+      '<li>綁定 LINE 帳號，再送 $30 購物金</li></ul>' +
+      '<div class="arq-code"><span class="cc">' + CONFIG.DISCOUNT_CODE + "</span>" +
+      '<span class="note">滿 $790 可折抵，<br>你這組剛好用得到</span>' +
+      '<button data-act="copy">複製</button></div></div>' +
+      '<div class="arq-status" data-role="status"></div>' +
+      '<button class="arq-big" data-act="add" data-role="main">🛒 一鍵加入購物車</button>' +
+      '<button class="arq-ghost" data-act="restart">↻ 重新測一次</button>' +
+      "</div>", true);
+  }
+
+  function setMainBtnToCheckout() {
+    var btn = root.querySelector('[data-role="main"]');
+    btn.className = "arq-big checkout";
+    btn.textContent = "前往結帳，輸入折扣碼 →";
+    btn.setAttribute("data-act", "checkout");
+    btn.disabled = false;
+  }
+
+  function goCheckout() { window.top.location.href = CONFIG.SHOP + "/order_form"; }
+
+  function addSet(btn) {
+    if (added) return goCheckout();
+    if (!SAME_ORIGIN) { // 預覽模式（GitHub Pages）：碰不到官網購物車，開套組商品頁示意
+      window.top.location.href = setUrl(current.title + "-preview");
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = "加入中…";
+    var token = (document.querySelector('meta[name="csrf-token"]') || {}).content || "";
+    var webinfo = btoa(encodeURIComponent(JSON.stringify({ id: null, name: null, phone: null, email: null, connect_email: null })));
+    var status = root.querySelector('[data-role="status"]');
+    fetch("/cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "X-CSRF-TOKEN": token, "WEB-INFO": webinfo, "X-Requested-With": "XMLHttpRequest" },
+      body: "product_id=" + SET.pid + "&product_spec_id=" + current.spec + "&booking_setting_id=&product_periodic_setting_id=&quantity=1&input_min=1&input_max=99"
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j || j.result !== "success") throw new Error("add failed");
+      added = true;
+      status.textContent = "✓ 已加入購物車：" + SET.name + "【" + current.theme + "】— 別忘了複製上方折扣碼再結帳";
+      status.classList.add("show");
+      setMainBtnToCheckout();
+    }).catch(function () { // 失敗保底：開套組商品頁讓客人用官網原生按鈕
+      window.top.location.href = setUrl(current.title + "-fallback");
+    });
+  }
+
+  function copyCode(btn) {
+    var code = CONFIG.DISCOUNT_CODE;
+    var done = function () { btn.textContent = "已複製 ✓"; setTimeout(function () { btn.textContent = "複製"; }, 2000); };
+    if (navigator.clipboard) { navigator.clipboard.writeText(code).then(done, done); }
+    else { var ta = document.createElement("textarea"); ta.value = code; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); done(); }
+  }
+
+  root.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-act]");
+    if (!el) return;
+    var act = el.getAttribute("data-act");
+    if (act === "start") next();
+    else if (act === "pick") {
+      var o = QUESTIONS[step].opts[+el.getAttribute("data-i")];
+      if (o.line) lineScore[o.line]++;
+      if (o.fmt) fmtScore[o.fmt]++;
+      next();
+    }
+    else if (act === "add") addSet(el);
+    else if (act === "checkout") goCheckout();
+    else if (act === "copy") copyCode(el);
+    else if (act === "restart") renderStart();
+  });
+
+  renderStart();
+})();
+</script>
+<!-- ▲▲▲ BVSHOP 嵌入終點 ▲▲▲ -->
