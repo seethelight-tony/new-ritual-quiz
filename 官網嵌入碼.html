@@ -8,7 +8,7 @@
   --arq-card: #ffffff; --arq-line: #ede7d6;
   font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   color: var(--arq-ink); line-height: 1.65;
-  max-width: 430px; margin: 0 auto; padding: 18px 14px 28px;
+  max-width: 460px; margin: 0 auto; padding: 18px 16px 30px;
   box-sizing: border-box;
 }
 #arq-app *, #arq-app *::before, #arq-app *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -43,8 +43,8 @@
 }
 #arq-app .arq-big:hover { background: #ddbf47; }
 #arq-app .arq-big:disabled { opacity: .7; cursor: wait; }
-#arq-app .arq-big.checkout { background: #3e7d54; color: #fff; }
-#arq-app .arq-big.checkout:hover { background: #35704a; }
+#arq-app .arq-big.view { background: #fff; color: var(--arq-deep); border: 1.5px solid var(--arq-brand); }
+#arq-app .arq-big.view:hover { background: #fffdf5; }
 #arq-app .arq-ghost {
   display: block; width: 100%; border: none; cursor: pointer;
   background: transparent; color: var(--arq-soft);
@@ -63,27 +63,45 @@
 }
 #arq-app .arq-combo .ctitle { font-size: 15.5px; font-weight: 700; color: var(--arq-ink); }
 #arq-app .arq-combo .csub { font-size: 12.5px; color: var(--arq-soft); margin-bottom: 10px; }
-#arq-app .arq-line { display: flex; gap: 11px; align-items: center; padding: 7px 0; border-top: 1px solid var(--arq-line); }
-#arq-app .arq-line:first-of-type { border-top: none; }
-#arq-app .arq-line img { width: 52px; height: 52px; object-fit: cover; border-radius: 9px; flex: none; background: #f1ecdd; }
-#arq-app .arq-line .ln { font-size: 13.5px; font-weight: 500; line-height: 1.4; }
-#arq-app .arq-line .lp { font-size: 12.5px; color: var(--arq-soft); margin-left: auto; flex: none; }
+#arq-app .arq-line { display: flex; gap: 14px; align-items: center; }
+#arq-app .arq-line img { width: 96px; height: 96px; object-fit: cover; border-radius: 12px; flex: none; background: #f1ecdd; }
+#arq-app .arq-line .ln { font-size: 14.5px; font-weight: 500; line-height: 1.45; }
+#arq-app .arq-line .lp { font-size: 15px; font-weight: 700; color: var(--arq-deep); margin-top: 6px; }
+#arq-app .arq-line .orig { font-size: 12px; color: var(--arq-soft); font-weight: 400; margin-left: 6px; }
 #arq-app .arq-total { display: flex; align-items: baseline; justify-content: flex-end; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--arq-brand); }
 #arq-app .arq-total .tl { font-size: 13px; color: var(--arq-soft); }
 #arq-app .arq-total .tp { font-size: 20px; font-weight: 700; color: var(--arq-deep); }
-#arq-app .arq-offer { background: linear-gradient(135deg, #fdf3d3, #fbeab7); border-radius: 14px; padding: 13px 15px; margin-bottom: 12px; text-align: left; }
-#arq-app .arq-offer .ot { font-size: 13.5px; font-weight: 700; color: #7a6215; margin-bottom: 7px; }
-#arq-app .arq-offer ul { list-style: none; }
-#arq-app .arq-offer li { font-size: 13px; color: #6b5712; padding: 2px 0 2px 18px; position: relative; }
-#arq-app .arq-offer li::before { content: "＋"; position: absolute; left: 0; color: var(--arq-deep); font-weight: 700; }
-#arq-app .arq-offer li.first::before { content: "🎁"; left: -1px; }
-#arq-app .arq-code { display: flex; align-items: center; gap: 10px; margin-top: 9px; padding-top: 9px; border-top: 1px dashed #d9be6a; }
-#arq-app .arq-code .cc { font-size: 18px; font-weight: 700; letter-spacing: 3px; color: #5c4a10; }
-#arq-app .arq-code button { border: none; background: #5c4a10; color: #fdf3d3; cursor: pointer; font-family: inherit; font-size: 12px; padding: 6px 14px; border-radius: 99px; margin-left: auto; flex: none; }
-#arq-app .arq-code .note { font-size: 11px; color: #9a8340; }
+#arq-app .arq-offer { background: linear-gradient(135deg, #fdf3d3, #fbeab7); border-radius: 14px; padding: 15px 16px; margin-bottom: 12px; text-align: left; }
+#arq-app .arq-offer .coup-title { font-size: 14.5px; font-weight: 700; color: #7a6215; }
+#arq-app .arq-code { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+#arq-app .arq-code .cc { font-size: 22px; font-weight: 700; letter-spacing: 3px; color: #5c4a10; }
+#arq-app .arq-code .note { font-size: 11.5px; color: #9a8340; line-height: 1.3; }
+#arq-app .arq-code button { border: none; background: #5c4a10; color: #fdf3d3; cursor: pointer; font-family: inherit; font-size: 12.5px; padding: 7px 15px; border-radius: 99px; margin-left: auto; flex: none; }
+#arq-app .arq-gifts { margin-top: 12px; padding-top: 11px; border-top: 1px dashed #d9be6a; }
+#arq-app .arq-gifts .gt { font-size: 11.5px; color: #9a8340; margin-bottom: 4px; }
+#arq-app .arq-gifts .g { font-size: 12.5px; color: #6b5712; padding: 2px 0 2px 17px; position: relative; }
+#arq-app .arq-gifts .g::before { content: "＋"; position: absolute; left: 0; color: var(--arq-deep); font-weight: 700; }
 #arq-app .arq-status { display: none; background: #eaf3e6; color: #3e6b47; font-size: 13.5px; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; text-align: left; }
 #arq-app .arq-status.show { display: block; }
 #arq-app .arq-foot { font-size: 11.5px; color: #b3ab99; text-align: center; margin-top: 16px; line-height: 1.6; }
+@media (min-width: 680px) {
+  #arq-app { max-width: 600px; padding: 26px 30px 34px; }
+  #arq-app .arq-head h2 { font-size: 27px; }
+  #arq-app .arq-head p { font-size: 15px; }
+  #arq-app .arq-qtitle { font-size: 21px; }
+  #arq-app button.arq-opt { font-size: 17px; padding: 18px 22px; }
+  #arq-app .arq-start, #arq-app .arq-result { padding: 32px 30px; }
+  #arq-app .arq-result h3 { font-size: 28px; }
+  #arq-app .arq-desc { font-size: 16px; }
+  #arq-app .arq-combo { padding: 20px; }
+  #arq-app .arq-combo .ctitle { font-size: 18px; }
+  #arq-app .arq-combo .csub { font-size: 14px; }
+  #arq-app .arq-line img { width: 132px; height: 132px; }
+  #arq-app .arq-line .ln { font-size: 16px; }
+  #arq-app .arq-line .lp { font-size: 17px; }
+  #arq-app .arq-big { font-size: 18.5px; padding: 18px; }
+  #arq-app .arq-code .cc { font-size: 25px; }
+}
 </style>
 <script>
 (function () {
@@ -92,8 +110,7 @@
     DISCOUNT_CODE: "RITUAL30",
     LINE_URL: "https://line.me/ti/p/~@003lnjai",
     UTM: "utm_source=website&utm_medium=quiz&utm_campaign=ritual_quiz",
-    SHOP: "https://seethelight.shop",
-    CART_URL: "/carts?c=0"   // 購物車頁：已登入→直接結帳、未登入→官網自動導去登入頁再回購物車（不是訂單查詢 /order_form）
+    SHOP: "https://seethelight.shop"
   };
   /* ======================== */
 
@@ -187,44 +204,56 @@
 
   function renderResult() {
     var line = topKey(lineScore, ["blue", "green", "pink", "gold"]);
+    showResult(line, false);
+  }
+
+  function showResult(line, alreadyAdded) {
     var t = TYPES[line];
     current = t;
+    try { sessionStorage.setItem("arq_r", line); } catch (e) {}
     root.innerHTML = shell(
       '<div class="arq-panel arq-result">' +
       '<span class="arq-tag" style="background:' + t.color + '">你的儀式類型</span>' +
       "<h3>" + t.emoji + " " + t.title + "</h3>" +
       '<p class="arq-desc">' + t.desc + "</p>" +
       '<div class="arq-combo"><div class="ctitle">為你配好的：' + SET.name + " ·【" + t.theme + "】</div>" +
-      '<div class="csub">薰香粉 ×2 ＋ 能量噴霧 ×1，一組建立日常淨化基底</div>' +
+      '<div class="csub">薰香粉 ×2 ＋ 主題噴霧 ×1，依你的類型自動配好「' + t.theme + '」</div>' +
       '<div class="arq-line"><img src="' + IMG + SET.img + '" alt="' + esc(SET.name) + '">' +
-      '<div class="ln">' + t.contains + '<div style="font-size:12px;color:#8d8574;font-weight:400;margin-top:2px">依你的類型自動配好「' + t.theme + '」</div></div>' +
-      '<div class="lp">NT$' + SET.price + "</div></div>" +
-      '<div class="arq-total"><span class="tl">組合價（原價 $' + SET.orig + "）</span><span class=\"tp\">NT$" + SET.price + "</span></div></div>" +
-      '<div class="arq-offer"><div class="ot">這組現在可享的優惠</div><ul>' +
-      '<li class="first">折扣碼首購現折 $30</li>' +
-      '<li>結帳加入會員，送 $50 購物金</li>' +
-      '<li>綁定 LINE 帳號，再送 $30 購物金</li></ul>' +
-      '<div class="arq-code"><span class="cc">' + CONFIG.DISCOUNT_CODE + "</span>" +
-      '<span class="note">滿 $790 可折抵，<br>你這組剛好用得到</span>' +
-      '<button data-act="copy">複製</button></div></div>' +
+      '<div><div class="ln">' + t.contains + '</div>' +
+      '<div class="lp">NT$' + SET.price + '<span class="orig">原價 $' + SET.orig + '</span></div></div></div></div>' +
+      '<div class="arq-offer">' +
+      '<div class="coup-title">🎁 輸入折扣碼，首購現折 $30</div>' +
+      '<div class="arq-code"><span class="cc">' + CONFIG.DISCOUNT_CODE + '</span><span class="note">滿 $790 折抵</span><button data-act="copy">複製</button></div>' +
+      '<div class="arq-gifts"><div class="gt">結帳時加入會員，還能再拿</div>' +
+      '<div class="g">加入會員，送 $50 購物金</div>' +
+      '<div class="g">綁定 LINE，再送 $30 購物金</div></div></div>' +
       '<div class="arq-status" data-role="status"></div>' +
       '<button class="arq-big" data-act="add" data-role="main">🛒 一鍵加入購物車</button>' +
       '<button class="arq-ghost" data-act="restart">↻ 重新測一次</button>' +
       "</div>", true);
+    if (alreadyAdded) { added = true; setMainBtnToView(true); }
   }
 
-  function setMainBtnToCheckout() {
+  function setMainBtnToView(showStatus) {
     var btn = root.querySelector('[data-role="main"]');
-    btn.className = "arq-big checkout";
-    btn.textContent = "前往購物車結帳 →";
-    btn.setAttribute("data-act", "checkout");
-    btn.disabled = false;
+    if (btn) {
+      btn.className = "arq-big view";
+      btn.textContent = "去看看商品介紹 →";
+      btn.setAttribute("data-act", "viewproduct");
+      btn.disabled = false;
+    }
+    if (showStatus) {
+      var status = root.querySelector('[data-role="status"]');
+      if (status) {
+        status.textContent = "✓ 已加入購物車！可以先看看商品介紹、繼續逛逛，想結帳時再點右上角購物車就好（結帳記得輸入折扣碼 " + CONFIG.DISCOUNT_CODE + "）";
+        status.classList.add("show");
+      }
+    }
   }
 
-  function goCheckout() { window.top.location.href = CONFIG.SHOP + CONFIG.CART_URL; }
+  function goProduct() { window.top.location.href = setUrl((current ? current.title : "set") + "-view"); }
 
   function addSet(btn) {
-    if (added) return goCheckout();
     if (!SAME_ORIGIN) { // 預覽模式（GitHub Pages）：碰不到官網購物車，開套組商品頁示意
       window.top.location.href = setUrl(current.title + "-preview");
       return;
@@ -233,7 +262,6 @@
     btn.textContent = "加入中…";
     var token = (document.querySelector('meta[name="csrf-token"]') || {}).content || "";
     var webinfo = btoa(encodeURIComponent(JSON.stringify({ id: null, name: null, phone: null, email: null, connect_email: null })));
-    var status = root.querySelector('[data-role="status"]');
     fetch("/cart", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "X-CSRF-TOKEN": token, "WEB-INFO": webinfo, "X-Requested-With": "XMLHttpRequest" },
@@ -241,9 +269,8 @@
     }).then(function (r) { return r.json(); }).then(function (j) {
       if (!j || j.result !== "success") throw new Error("add failed");
       added = true;
-      status.textContent = "✓ 已加入購物車：" + SET.name + "【" + current.theme + "】— 結帳頁記得輸入折扣碼 " + CONFIG.DISCOUNT_CODE;
-      status.classList.add("show");
-      setMainBtnToCheckout();
+      try { sessionStorage.setItem("arq_added", "1"); } catch (e) {}
+      setMainBtnToView(true);
     }).catch(function () { // 失敗保底：開套組商品頁讓客人用官網原生按鈕
       window.top.location.href = setUrl(current.title + "-fallback");
     });
@@ -268,12 +295,18 @@
       next();
     }
     else if (act === "add") addSet(el);
-    else if (act === "checkout") goCheckout();
+    else if (act === "viewproduct") goProduct();
     else if (act === "copy") copyCode(el);
-    else if (act === "restart") renderStart();
+    else if (act === "restart") { try { sessionStorage.removeItem("arq_r"); sessionStorage.removeItem("arq_added"); } catch (e2) {} renderStart(); }
   });
 
-  renderStart();
+  // 若使用者離開又返回（例如去看商品頁再回來），還原上次結果，避免測驗結果消失
+  (function init() {
+    var savedLine = null, savedAdded = false;
+    try { savedLine = sessionStorage.getItem("arq_r"); savedAdded = sessionStorage.getItem("arq_added") === "1"; } catch (e) {}
+    if (savedLine && TYPES[savedLine]) showResult(savedLine, savedAdded);
+    else renderStart();
+  })();
 })();
 </script>
 <!-- ▲▲▲ BVSHOP 嵌入終點 ▲▲▲ -->
