@@ -92,7 +92,8 @@
     DISCOUNT_CODE: "RITUAL50",
     LINE_URL: "https://line.me/ti/p/~@003lnjai",
     UTM: "utm_source=website&utm_medium=quiz&utm_campaign=ritual_quiz",
-    SHOP: "https://seethelight.shop"
+    SHOP: "https://seethelight.shop",
+    CART_URL: "/carts?c=0"   // 購物車頁：已登入→直接結帳、未登入→官網自動導去登入頁再回購物車（不是訂單查詢 /order_form）
   };
   /* ======================== */
 
@@ -215,12 +216,12 @@
   function setMainBtnToCheckout() {
     var btn = root.querySelector('[data-role="main"]');
     btn.className = "arq-big checkout";
-    btn.textContent = "前往結帳，輸入折扣碼 →";
+    btn.textContent = "前往購物車結帳 →";
     btn.setAttribute("data-act", "checkout");
     btn.disabled = false;
   }
 
-  function goCheckout() { window.top.location.href = CONFIG.SHOP + "/order_form"; }
+  function goCheckout() { window.top.location.href = CONFIG.SHOP + CONFIG.CART_URL; }
 
   function addSet(btn) {
     if (added) return goCheckout();
@@ -240,7 +241,7 @@
     }).then(function (r) { return r.json(); }).then(function (j) {
       if (!j || j.result !== "success") throw new Error("add failed");
       added = true;
-      status.textContent = "✓ 已加入購物車：" + SET.name + "【" + current.theme + "】— 別忘了複製上方折扣碼再結帳";
+      status.textContent = "✓ 已加入購物車：" + SET.name + "【" + current.theme + "】— 結帳頁記得輸入折扣碼 " + CONFIG.DISCOUNT_CODE;
       status.classList.add("show");
       setMainBtnToCheckout();
     }).catch(function () { // 失敗保底：開套組商品頁讓客人用官網原生按鈕
