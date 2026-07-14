@@ -81,6 +81,7 @@
 #arq-app .arq-gifts .gt { font-size: 11.5px; color: #9a8340; margin-bottom: 4px; }
 #arq-app .arq-gifts .g { font-size: 12.5px; color: #6b5712; padding: 2px 0 2px 17px; position: relative; }
 #arq-app .arq-gifts .g::before { content: "＋"; position: absolute; left: 0; color: var(--arq-deep); font-weight: 700; }
+#arq-app .arq-note { font-size: 13px; color: var(--arq-soft); margin: 12px 0 8px; line-height: 1.5; }
 #arq-app .arq-status { display: none; background: #eaf3e6; color: #3e6b47; font-size: 13.5px; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; text-align: left; }
 #arq-app .arq-status.show { display: block; }
 #arq-app .arq-foot { font-size: 11.5px; color: #b3ab99; text-align: center; margin-top: 16px; line-height: 1.6; }
@@ -168,6 +169,15 @@
   function setUrl(tag) { return CONFIG.SHOP + "/item/" + SET.slug + "?" + CONFIG.UTM + "&utm_content=" + tag; }
   function esc(s) { return String(s).replace(/"/g, "&quot;"); }
 
+  // 以 iframe 嵌入時，把內容高度回報給官網頁面，讓 iframe 自動長高（不會有捲軸或大片空白）
+  function postHeight() {
+    try {
+      if (window.parent === window) return;
+      var h = Math.ceil(root.getBoundingClientRect().height) + 24;
+      window.parent.postMessage({ arqHeight: h }, "*");
+    } catch (e) {}
+  }
+
   function shell(inner, showDots) {
     var dots = "";
     for (var i = 0; i < QUESTIONS.length; i++) dots += '<div class="arq-dot' + (i <= step ? " on" : "") + '"></div>';
@@ -227,11 +237,15 @@
       '<div class="arq-gifts"><div class="gt">結帳時加入會員，還能再拿</div>' +
       '<div class="g">加入會員，送 $50 購物金</div>' +
       '<div class="g">綁定 LINE，再送 $30 購物金</div></div></div>' +
-      '<div class="arq-status" data-role="status"></div>' +
-      '<button class="arq-big" data-act="add" data-role="main">🛒 一鍵加入購物車</button>' +
+      (SAME_ORIGIN
+        ? '<div class="arq-status" data-role="status"></div>' +
+          '<button class="arq-big" data-act="add" data-role="main">🛒 一鍵加入購物車</button>'
+        : '<div class="arq-note">到商品頁選【' + t.theme + '】，結帳輸入折扣碼就能折抵</div>' +
+          '<a class="arq-big" href="' + setUrl(line + "-shop") + '" target="_top">看看你的專屬組合 →</a>') +
       '<button class="arq-ghost" data-act="restart">↻ 重新測一次</button>' +
       "</div>", true);
-    if (alreadyAdded) { added = true; setMainBtnToView(true); }
+    if (SAME_ORIGIN && alreadyAdded) { added = true; setMainBtnToView(true); }
+    postHeight();
   }
 
   function setMainBtnToView(showStatus) {
@@ -302,10 +316,13 @@
 
   // 若使用者離開又返回（例如去看商品頁再回來），還原上次結果，避免測驗結果消失
   (function init() {
+    if (window.ResizeObserver) { try { new ResizeObserver(postHeight).observe(root); } catch (e) {} }
+    window.addEventListener("load", postHeight);
     var savedLine = null, savedAdded = false;
     try { savedLine = sessionStorage.getItem("arq_r"); savedAdded = sessionStorage.getItem("arq_added") === "1"; } catch (e) {}
     if (savedLine && TYPES[savedLine]) showResult(savedLine, savedAdded);
     else renderStart();
+    postHeight();
   })();
 })();
 </script>
