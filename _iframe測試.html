@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iframe 嵌入模擬（本機測試用，不會上線）</title>
+</head>
+<body style="margin:0;background:#fff;font-family:sans-serif;">
+<div style="padding:20px;text-align:center;color:#888;">（模擬官網頁面的其他內容）</div>
+
+<iframe
+  id="arq-frame"
+  src="/index.html"
+  title="極光盾新手選品測驗"
+  scrolling="no"
+  allow="clipboard-write"
+  style="width:100%;max-width:640px;height:800px;border:1px dashed #ccc;display:block;margin:0 auto;border-radius:16px;overflow:hidden;"
+></iframe>
+<script>
+(function () {
+  var f = document.getElementById("arq-frame");
+  window.__heights = [];
+  window.addEventListener("message", function (e) {
+    if (!e.data || typeof e.data.arqHeight !== "number") return;
+    var h = e.data.arqHeight;
+    window.__heights.push(h);
+    if (h > 200 && h < 4000) f.style.height = h + "px";
+  });
+})();
+</script>
+<div style="padding:20px;text-align:center;color:#888;">（模擬官網頁尾）</div>
+</body>
+</html>
